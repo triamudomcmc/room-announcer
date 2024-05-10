@@ -1,0 +1,13 @@
+{
+  "version": "6",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1715338202067,
+      "tag": "0000_powerful_cobalt_man",
+      "breakpoints": true
+    }
+  ]
+}
