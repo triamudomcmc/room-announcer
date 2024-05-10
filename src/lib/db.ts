@@ -15,5 +15,5 @@ export const getUniqueStudent = async (id: number) => {
     .where(eq(schema.StudentsTable.id, id))
     .limit(1)
 
-  return student
+  return student[0] ?? null
 }
