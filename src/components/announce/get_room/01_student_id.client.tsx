@@ -2,23 +2,27 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { type SubmitHandler, useForm } from "react-hook-form";
-import { type Process } from "./get_room.client";
+import { type SubmitHandler, useForm, set } from "react-hook-form";
+import { type StepProps } from "./get_room.client";
+import { useState } from "react";
+import { AnnounceHeading } from "./heading";
 
 interface StudentIdFormInput {
   studentId: string;
 }
 
-interface StudentIdProps {
-  process: Process;
-  back: () => void;
-  next: () => void;
-}
+export default function StudentId({
+  process,
+  back,
+  next,
+  saveInput,
+}: StepProps) {
+  const [loading, setLoading] = useState(false);
 
-export default function StudentId({ process, back, next }: StudentIdProps) {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<StudentIdFormInput>({
     defaultValues: {
@@ -26,28 +30,28 @@ export default function StudentId({ process, back, next }: StudentIdProps) {
     },
   });
 
-  const onSubmit: SubmitHandler<StudentIdFormInput> = (data) => {
-    console.log(data);
-    next();
+  const onSubmit: SubmitHandler<StudentIdFormInput> = async (data) => {
+    setLoading(true);
+    try {
+      await saveInput(data.studentId);
+      next();
+    } catch (error) {
+      setError("studentId", {
+        type: "manual",
+        message: "เลขประจำตัวนักเรียนไม่ถูกต้อง",
+      });
+    }
+    setLoading(false);
   };
 
   return (
     <div className="flex flex-col gap-2">
-      <Button
-        className={cn(
-          "rounded-lg border px-6 py-12 shadow-lg",
-          process === "idle" && "border-slate-200 bg-white text-slate-700",
-          process === "editing" && "bg-slate-700 text-white",
-        )}
-        onClick={() => {
-          if (process === "done") back();
-        }}
-      >
-        <div className="flex w-full items-center gap-2">
-          <h2 className="text-5xl font-bold">01</h2>
-          <h2 className="text-lg">กรอกเลขประจำตัวนักเรียน</h2>
-        </div>
-      </Button>
+      <AnnounceHeading
+        process={process}
+        step={1}
+        label="กรอกเลขประจำตัวนักเรียน"
+        back={back}
+      />
 
       {process === "editing" && (
         <form
@@ -56,20 +60,25 @@ export default function StudentId({ process, back, next }: StudentIdProps) {
         >
           <Input
             {...register("studentId", {
-              required: true,
-              pattern: /^[5,6][0-9]{4}$/,
+              required: "กรุณากรอกเลขประจำตัวนักเรียน",
+              pattern: {
+                value: /^[6][0-9]{4}$/,
+                message: "เลขประจำตัวนักเรียนไม่ถูกต้อง",
+              },
             })}
             type="text"
             placeholder="12345"
           />
           {errors.studentId && (
             <span className="text-sm text-red-500">
-              กรุณากรอกเลขประจำตัวนักเรียนให้ถูกต้อง
+              {errors.studentId.message}
             </span>
           )}
 
           <div className="flex flex-col items-end">
-            <Button type="submit">ยืนยัน</Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? "กำลังโหลด..." : "ยืนยัน"}
+            </Button>
           </div>
         </form>
       )}
