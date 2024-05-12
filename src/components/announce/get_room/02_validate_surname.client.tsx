@@ -48,15 +48,13 @@ export default function ValidateSurname({
     try {
       await saveInput(data.surname);
       next();
+      reset();
     } catch (error) {
-      console.log("hi");
       setError("surname", {
         type: "manual",
         message: "นามสกุลไม่ไม่ตรงกับชื่อ",
       });
-      console.log(errors.surname);
     }
-    reset();
     setLoading(false);
   };
 
