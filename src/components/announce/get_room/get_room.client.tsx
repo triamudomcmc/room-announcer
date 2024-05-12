@@ -51,10 +51,6 @@ export default function GetRoom() {
     if (!validateSurname) {
       throw new Error("Invalid surname");
     }
-
-    setStudentInput((prev) => ({
-      ...prev,
-    }));
   }, []);
 
   return (
