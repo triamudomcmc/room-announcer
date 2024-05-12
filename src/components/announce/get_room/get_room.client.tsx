@@ -2,6 +2,7 @@
 import { useCallback, useState } from "react";
 import StudentId from "./01_student_id.client";
 import ValidateSurname from "./02_validate_surname.client";
+import DisplayData from "./03_display_data.client";
 
 export type Process = "idle" | "editing" | "done";
 
@@ -14,13 +15,11 @@ export interface StepProps {
 
 export interface StudentInput {
   studentId: string;
-  surname: string;
 }
 
 export default function GetRoom() {
   const [studentInput, setStudentInput] = useState<StudentInput>({
     studentId: "",
-    surname: "",
   });
   const [process, setProcess] = useState<
     Record<"step_1" | "step_2" | "step_3", Process>
@@ -41,7 +40,6 @@ export default function GetRoom() {
 
     setStudentInput({
       studentId: studentId,
-      surname: "",
     });
   }, []);
 
@@ -56,7 +54,6 @@ export default function GetRoom() {
 
     setStudentInput((prev) => ({
       ...prev,
-      surname: surname,
     }));
   }, []);
 
@@ -98,6 +95,10 @@ export default function GetRoom() {
             });
           }}
           saveInput={handleSaveSurname}
+          studentId={studentInput.studentId}
+        />
+        <DisplayData
+          process={process.step_3}
           studentId={studentInput.studentId}
         />
       </div>
