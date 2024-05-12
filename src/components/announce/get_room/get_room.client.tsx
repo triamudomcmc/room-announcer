@@ -47,7 +47,7 @@ export default function GetRoom() {
 
   const handleSaveSurname = useCallback(async (surname: string) => {
     const validateSurname = await new Promise<boolean>((resolve) =>
-      setTimeout(() => resolve(Boolean(Math.round(Math.random()))), 1000),
+      setTimeout(() => resolve(surname === "มักเที่ยงตรง"), 1000),
     );
 
     if (!validateSurname) {

@@ -12,10 +12,12 @@ export function AnnounceHeading({ process, back, step, label }: HeadingProps) {
   return (
     <Button
       className={cn(
-        "rounded-lg border px-6 py-12 shadow-lg",
-        process === "idle" && "border-slate-200 bg-white text-slate-700",
-        process === "editing" && "bg-slate-700 text-white",
-        process === "done" && "border-slate-200 bg-white text-slate-300",
+        "rounded-lg border px-6 py-12 shadow-lg transition-colors duration-300 ease-in",
+        process === "idle" &&
+          "cursor-not-allowed border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
+        process === "editing" && "bg-slate-700 text-white hover:bg-slate-800",
+        process === "done" &&
+          "border-slate-200 bg-white text-slate-300 hover:bg-slate-500 hover:text-slate-100",
       )}
       onClick={() => {
         if (process === "done") back();

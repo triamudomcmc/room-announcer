@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { type StepProps } from "./get_room.client";
 import { AnnounceHeading } from "./heading";
@@ -40,6 +39,7 @@ export default function ValidateSurname({
   const {
     register,
     handleSubmit,
+    reset,
     setError,
     formState: { errors },
   } = useForm<SurnameFormInput>({
@@ -49,15 +49,20 @@ export default function ValidateSurname({
   });
 
   const onSubmit: SubmitHandler<SurnameFormInput> = async (data) => {
+    setLoading(true);
     try {
       await saveInput(data.surname);
       next();
     } catch (error) {
+      console.log("hi");
       setError("surname", {
         type: "manual",
         message: "นามสกุลไม่ไม่ตรงกับชื่อ",
       });
+      console.log(errors.surname);
     }
+    reset();
+    setLoading(false);
   };
 
   return (
@@ -82,10 +87,6 @@ export default function ValidateSurname({
           <Input
             {...register("surname", {
               required: "กรุณากรอกนามสกุล",
-              pattern: {
-                value: /^[ก-๏\s]+$/,
-                message: "นามสกุลไม่ถูกต้อง",
-              },
             })}
             type="text"
             placeholder="นามสกุล"
