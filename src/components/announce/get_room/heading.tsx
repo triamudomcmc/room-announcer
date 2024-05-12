@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 interface HeadingProps {
   process: "idle" | "editing" | "done";
-  back: () => void;
+  back?: () => void;
   step: number;
   label: string;
 }
@@ -20,7 +20,7 @@ export function AnnounceHeading({ process, back, step, label }: HeadingProps) {
           "border-slate-200 bg-white text-slate-300 hover:bg-slate-500 hover:text-slate-100",
       )}
       onClick={() => {
-        if (process === "done") back();
+        if (process === "done") back && back();
       }}
     >
       <div className="flex w-full items-center gap-2">
@@ -42,7 +42,9 @@ export function AnnounceHeading({ process, back, step, label }: HeadingProps) {
             {String(step).padStart(2, "0")}
           </h2>
         )}
-        <h2 className="text-lg">{label}</h2>
+        <h2 className="whitespace-pre-wrap text-left text-lg leading-tight">
+          {label}
+        </h2>
       </div>
     </Button>
   );
