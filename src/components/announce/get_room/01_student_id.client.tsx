@@ -2,11 +2,34 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { type SubmitHandler, useForm } from "react-hook-form";
+import { type Process } from "./get_room.client";
 
-export default function StudentId() {
-  const [studentId, setStudentId] = useState<string>("");
-  const [process, setProcess] = useState<"idle" | "editing" | "done">("idle");
+interface StudentIdFormInput {
+  studentId: string;
+}
+
+interface StudentIdProps {
+  process: Process;
+  back: () => void;
+  next: () => void;
+}
+
+export default function StudentId({ process, back, next }: StudentIdProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<StudentIdFormInput>({
+    defaultValues: {
+      studentId: "",
+    },
+  });
+
+  const onSubmit: SubmitHandler<StudentIdFormInput> = (data) => {
+    console.log(data);
+    next();
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -17,8 +40,7 @@ export default function StudentId() {
           process === "editing" && "bg-slate-700 text-white",
         )}
         onClick={() => {
-          if (process === "idle") setProcess("editing");
-          else if (process === "done") setProcess("editing");
+          if (process === "done") back();
         }}
       >
         <div className="flex w-full items-center gap-2">
@@ -28,12 +50,28 @@ export default function StudentId() {
       </Button>
 
       {process === "editing" && (
-        <div className="flex w-full flex-col gap-4 rounded-lg border border-slate-200 bg-white p-6 shadow-lg">
-          <Input type="text" placeholder="12345" />
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex w-full flex-col gap-4 rounded-lg border border-slate-200 bg-white p-6 shadow-lg"
+        >
+          <Input
+            {...register("studentId", {
+              required: true,
+              pattern: /^[5,6][0-9]{4}$/,
+            })}
+            type="text"
+            placeholder="12345"
+          />
+          {errors.studentId && (
+            <span className="text-sm text-red-500">
+              กรุณากรอกเลขประจำตัวนักเรียนให้ถูกต้อง
+            </span>
+          )}
+
           <div className="flex flex-col items-end">
-            <Button type="submit">บืนยัน</Button>
+            <Button type="submit">ยืนยัน</Button>
           </div>
-        </div>
+        </form>
       )}
     </div>
   );

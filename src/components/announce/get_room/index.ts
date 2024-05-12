@@ -1,3 +1,3 @@
-import { default as GetRoom } from "./get_room";
+import { default as GetRoom } from "./get_room.client";
 
 export default GetRoom;
