@@ -9,8 +9,8 @@ const notoSansThai = Noto_Sans_Thai({
 });
 
 export const metadata: Metadata = {
-  title: "ระบบประกาศห้อง​ โรงเรียนเตรียมอุดมศึกษา",
-  description: "ระบบประกาศห้อง​ โรงเรียนเตรียมอุดมศึกษา",
+  title: "ระบบประกาศห้อง​เรียน โรงเรียนเตรียมอุดมศึกษา",
+  description: "ระบบประกาศห้อง​เรียน โรงเรียนเตรียมอุดมศึกษา",
 };
 
 export default function RootLayout({
