@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 import StudentId from "./01_student_id.client";
 import ValidateSurname from "./02_validate_surname.client";
 import DisplayData from "./03_display_data.client";
+import { mockFetch } from "@/lib/fetch";
 
 export type Process = "idle" | "editing" | "done";
 
@@ -30,9 +31,7 @@ export default function GetRoom() {
   });
 
   const handleSaveStudentId = useCallback(async (studentId: string) => {
-    const validateStudentId = await new Promise<boolean>((resolve) =>
-      setTimeout(() => resolve(true), 1000),
-    );
+    const validateStudentId = await mockFetch<boolean>(true, 1000);
 
     if (!validateStudentId) {
       throw new Error("Invalid student ID");
@@ -44,8 +43,9 @@ export default function GetRoom() {
   }, []);
 
   const handleSaveSurname = useCallback(async (surname: string) => {
-    const validateSurname = await new Promise<boolean>((resolve) =>
-      setTimeout(() => resolve(surname === "มักเที่ยงตรง"), 1000),
+    const validateSurname = await mockFetch<boolean>(
+      surname === "มักเที่ยงตรง",
+      1000,
     );
 
     if (!validateSurname) {

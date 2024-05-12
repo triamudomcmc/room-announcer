@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { type Process } from "./get_room.client";
 import { AnnounceHeading } from "./heading";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useFetch } from "@/lib/fetch";
 
 interface DisplayDataProps {
   process: Process;
@@ -134,38 +135,25 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
   </div>
 );
 
+const mock = true;
+
 export default function DisplayData({ studentId, process }: DisplayDataProps) {
-  const [studentData, setStudentData] = useState<StudentData>({
-    name: "",
-    studentId: "",
-    academicProgram: "",
-    grade: "",
-    building: "",
-    room: "",
-    number: "",
-    advisor: [],
-  });
-
-  const [studentDataLoading, setStudentDataLoading] = useState(false);
-
-  useEffect(() => {
-    if (process === "editing") {
-      setStudentDataLoading(true);
-      setTimeout(() => {
-        setStudentData({
-          name: "นางสาวสุทธิชา สีผาย",
-          studentId: "63012",
-          academicProgram: "วิทย์ - คณิต",
-          grade: "ม.5",
-          building: "คุณหญิงหรั่ง กันตารัติ",
-          room: "833",
-          number: "20",
-          advisor: ["เรียนเด่น เล่นดี", "เรียนเด่น เล่นดี"],
-        });
-        setStudentDataLoading(false);
-      }, 1000);
-    }
-  }, [studentId, process]);
+  const { data: studentData, loading: studentDataLoading } =
+    useFetch<StudentData>(
+      `/api/student/${studentId}/data`,
+      mock
+        ? {
+            name: "นางสาวสุทธิชา สีผาย",
+            studentId: "63012",
+            academicProgram: "วิทย์ - คณิต",
+            grade: "ม.5",
+            building: "คุณหญิงหรั่ง กันตารัติ",
+            room: "833",
+            number: "20",
+            advisor: ["เรียนเด่น เล่นดี", "เรียนเด่น เล่นดี"],
+          }
+        : undefined,
+    );
 
   return (
     <div className="flex flex-col gap-2">
@@ -186,7 +174,7 @@ export default function DisplayData({ studentId, process }: DisplayDataProps) {
           {studentDataLoading ? (
             <StudentLoadingSkeleton />
           ) : (
-            <StudentDataPanel studentData={studentData} />
+            <StudentDataPanel studentData={studentData as StudentData} />
           )}
         </div>
       )}

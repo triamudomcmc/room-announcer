@@ -5,6 +5,7 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import { type StepProps } from "./get_room.client";
 import { AnnounceHeading } from "./heading";
 import { useEffect, useState } from "react";
+import { useFetch } from "@/lib/fetch";
 
 interface SurnameFormInput {
   surname: string;
@@ -14,6 +15,8 @@ interface ValidateSurnameProps extends StepProps {
   studentId: string;
 }
 
+const mock = true;
+
 export default function ValidateSurname({
   process,
   back,
@@ -21,20 +24,12 @@ export default function ValidateSurname({
   saveInput,
   studentId,
 }: ValidateSurnameProps) {
-  const [firstNameLoading, setFirstNameLoading] = useState(false);
-  const [firstName, setFirstName] = useState("");
+  const { data: firstName, loading: firstNameLoading } = useFetch<string>(
+    `/api/student/${studentId}/firstname`,
+    mock ? "ปณิธิ" : undefined,
+  );
 
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (process === "editing") {
-      setFirstNameLoading(true);
-      setTimeout(() => {
-        setFirstName("ปณิธิ");
-        setFirstNameLoading(false);
-      }, 1000);
-    }
-  }, [studentId, process]);
 
   const {
     register,
@@ -82,7 +77,7 @@ export default function ValidateSurname({
           <Input
             disabled={true}
             type="text"
-            value={firstNameLoading ? "กำลังโหลด..." : firstName}
+            value={firstNameLoading ? "กำลังโหลด..." : String(firstName)}
           />
           <Input
             {...register("surname", {
