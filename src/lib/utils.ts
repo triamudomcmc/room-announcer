@@ -31,3 +31,9 @@ export function getBuildingName(room: string) {
 
   return buildingNames[room[0]];
 }
+
+export function removeParenthesisPrefix(str: string) {
+  const firstParenthesis = str.indexOf("(");
+
+  return firstParenthesis === -1 ? str : str.slice(0, firstParenthesis).trim();
+}

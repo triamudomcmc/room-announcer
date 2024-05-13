@@ -1,5 +1,5 @@
 "use client";
-import { getBuildingName } from "@/lib/utils";
+import { getBuildingName, removeParenthesisPrefix } from "@/lib/utils";
 import { type Process } from "./get_room.client";
 import { AnnounceHeading } from "./heading";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -75,7 +75,9 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
     </div>
     <div className="flex gap-2">
       <h2 className="text-slate-600">นามสกุล</h2>
-      <h2 className="text-slate-800">{studentData.lastname}</h2>
+      <h2 className="text-slate-800">
+        {removeParenthesisPrefix(studentData.lastname)}
+      </h2>
     </div>
     <div className="flex gap-2">
       <h2 className="text-slate-600">เลขประจำตัว</h2>

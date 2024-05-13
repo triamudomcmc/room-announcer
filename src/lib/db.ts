@@ -4,6 +4,7 @@ import postgres from "postgres";
 
 import * as schema from "../schema";
 import { similarity } from "./compareStringDistance";
+import { removeParenthesisPrefix } from "./utils";
 
 const queryClient = postgres(process.env.DATABASE_URL as string);
 
@@ -23,7 +24,7 @@ export const getStudentInformation = async (
   student: schema.student,
   lastname: string,
 ) => {
-  if (similarity(student.lastname, lastname) > 0.8) {
+  if (similarity(removeParenthesisPrefix(student.lastname), lastname) > 0.8) {
     return student;
   }
 
