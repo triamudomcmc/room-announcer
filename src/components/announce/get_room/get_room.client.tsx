@@ -34,10 +34,11 @@ export default function GetRoom() {
   });
 
   const handleSaveStudentId = async (studentId: string) => {
-    const res = await fetch("/api/student/name", {
-      method: "POST",
-      body: JSON.stringify({ id: studentId }),
+    const res = await fetch(`/api/student/${studentId}`, {
+      method: "GET",
     });
+
+    console.log(res);
 
     const studentName = await res.json();
 
@@ -49,20 +50,23 @@ export default function GetRoom() {
 
     setStudentInput({
       studentId: studentId,
-      firstNameCheck: studentName,
+      firstNameCheck: studentName.firstname,
     });
   };
 
-  const handleSaveSurname = useCallback(async (surname: string) => {
-    const validateSurname = await mockFetch<boolean>(
-      surname === "มักเที่ยงตรง",
-      1000,
+  const handleSaveSurname = async (surname: string) => {
+    const validateSurname = await fetch(
+      `/api/student/${studentInput.studentId}`,
+      {
+        method: "POST",
+        body: JSON.stringify({ lastname: surname }),
+      },
     );
 
-    if (!validateSurname) {
+    if (validateSurname.status === 404) {
       throw new Error("Invalid surname");
     }
-  }, []);
+  };
 
   return (
     <section className="relative -top-8 flex w-full flex-col rounded-t-xl bg-white px-4 py-16 text-lg">
