@@ -68,7 +68,7 @@ const StudentLoadingSkeleton = () => (
 );
 
 const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
-  <div className="flex flex-col gap-2">
+  <div className="flex w-full flex-col gap-2">
     <div className="flex gap-2">
       <h2 className="text-slate-600">ชื่อ</h2>
       <h2 className="text-slate-800">{studentData.name}</h2>
@@ -115,17 +115,24 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
     </div>
     {studentData.level === 4 && (
       <>
-        <div className="flex gap-2">
-          <h2 className="text-slate-600">รหัสไวไฟ</h2>
-          <div className="flex flex-col gap-1">{studentData.wifi}</div>
+        <hr className="my-4 border border-slate-200" />
+        <div className="flex w-full gap-2">
+          <h2 className="text-sm text-slate-600">รหัสไวไฟ</h2>
+          <div className="flex flex-col justify-center gap-1 whitespace-break-spaces text-sm">
+            {studentData.wifi}
+          </div>
         </div>
-        <div className="flex gap-2">
-          <h2 className="text-slate-600">อีเมล (Outlook)</h2>
-          <div className="flex flex-col gap-1">{studentData.outlook}</div>
+        <div className="flex w-full gap-2">
+          <h2 className="text-sm text-slate-600">อีเมล (Outlook)</h2>
+          <div className="flex w-full flex-col justify-center gap-1 whitespace-break-spaces text-sm">
+            {studentData.outlook}
+          </div>
         </div>
-        <div className="flex gap-2">
-          <h2 className="text-slate-600">อีเมล (Gmail)</h2>
-          <div className="flex flex-col gap-1">{studentData.gmail}</div>
+        <div className="flex w-full gap-2">
+          <h2 className="text-sm text-slate-600">อีเมล (Gmail)</h2>
+          <div className="flex w-full flex-col justify-center gap-1 whitespace-break-spaces text-sm">
+            {studentData.gmail}
+          </div>
         </div>
       </>
     )}
