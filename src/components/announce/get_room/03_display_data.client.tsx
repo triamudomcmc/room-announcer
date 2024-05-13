@@ -134,6 +134,12 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
             {studentData.gmail}
           </div>
         </div>
+        <div className="flex w-full gap-2">
+          <h2 className="text-sm text-slate-600">รหัสผ่าน</h2>
+          <div className="flex w-full flex-col justify-center gap-1 whitespace-break-spaces text-sm">
+            {studentData.password}
+          </div>
+        </div>
       </>
     )}
   </div>
