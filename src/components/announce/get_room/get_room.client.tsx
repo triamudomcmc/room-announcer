@@ -39,11 +39,7 @@ export default function GetRoom() {
       method: "GET",
     });
 
-    console.log(res);
-
     const studentName = await res.json();
-
-    console.log(studentName);
 
     if (!studentName) {
       throw new Error("Invalid student ID");
