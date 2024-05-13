@@ -14,6 +14,7 @@ export const StudentsTable = pgTable("students", {
   wifi: varchar("wifi"),
   password: varchar("password"),
   level: integer("level").notNull(),
+  advisor: varchar("advisor").notNull(),
 });
 
 export const emptyStudent = {
@@ -29,6 +30,7 @@ export const emptyStudent = {
   wifi: "",
   password: "",
   level: 0,
+  advisor: "",
 };
 
 export type student = InferSelectModel<typeof StudentsTable>;
