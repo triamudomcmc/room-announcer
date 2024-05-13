@@ -37,7 +37,7 @@ export const getStudentName = async (id: number) => {
     .where(eq(schema.StudentsTable.id, id))
     .limit(1);
 
-  if (!student) {
+  if (!student || student.length === 0) {
     return null;
   }
 

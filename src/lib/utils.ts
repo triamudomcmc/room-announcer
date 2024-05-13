@@ -6,13 +6,13 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 const buildingNames: Record<string, string> = {
-  "1": "ตึก 2",
-  "2": "ตึก 3",
-  "3": "ตึก 60 ปี",
+  "1": "2",
+  "2": "3",
+  "3": "60 ปี",
   "4": "ตึกเฉลิมพระเกียรติฯ 72 พรรษา",
-  "6": "ตึก 55 ปี",
-  "8": "ตึก คุณหญิงหรั่งฯ",
-  "9": "ตึก 9",
+  "6": "55 ปี",
+  "8": "คุณหญิงหรั่งฯ",
+  "9": "9",
 };
 
 const building1 = [3, 4, 5];
@@ -22,11 +22,11 @@ export function getBuildingName(room: string) {
   // if building is two digits and the first digit is 3,4,5 then it is building 1
 
   if (room.length === 2 && building1.includes(parseInt(room[0]))) {
-    return "ตึก 1";
+    return "1";
   }
 
   if (room.length === 2 && artBuilding.includes(parseInt(room[0]))) {
-    return "ตึกศิลปะ";
+    return "ศิลปะ";
   }
 
   return buildingNames[room[0]];

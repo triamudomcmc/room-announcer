@@ -47,7 +47,7 @@ export default function ValidateSurname({
     } catch (error) {
       setError("surname", {
         type: "manual",
-        message: "นามสกุลไม่ไม่ตรงกับชื่อ",
+        message: "นามสกุลไม่ตรงกับชื่อ",
       });
     }
     setLoading(false);

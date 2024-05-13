@@ -74,6 +74,10 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
       <h2 className="text-slate-800">{studentData.name}</h2>
     </div>
     <div className="flex gap-2">
+      <h2 className="text-slate-600">นามสกุล</h2>
+      <h2 className="text-slate-800">{studentData.lastname}</h2>
+    </div>
+    <div className="flex gap-2">
       <h2 className="text-slate-600">เลขประจำตัว</h2>
       <h2 className="text-slate-800">{studentData.id}</h2>
     </div>
@@ -83,7 +87,7 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
     </div>
     <div className="flex gap-2">
       <h2 className="text-slate-600">ชั้น</h2>
-      <h2 className="text-slate-800">{studentData.level}</h2>
+      <h2 className="text-slate-800">ม.{studentData.level}</h2>
     </div>
     <div className="flex gap-2">
       <h2 className="text-slate-600">ตึก</h2>
@@ -107,14 +111,22 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
         ))} */}
       </div>
     </div>
-    <div className="flex gap-2">
-      <h2 className="text-slate-600">รหัสไวไฟ</h2>
-      <div className="flex flex-col gap-1">{studentData.wifi}</div>
-    </div>
-    <div className="flex gap-2">
-      <h2 className="text-slate-600">อีเมล</h2>
-      <div className="flex flex-col gap-1">{studentData.outlook}</div>
-    </div>
+    {studentData.level === 4 && (
+      <>
+        <div className="flex gap-2">
+          <h2 className="text-slate-600">รหัสไวไฟ</h2>
+          <div className="flex flex-col gap-1">{studentData.wifi}</div>
+        </div>
+        <div className="flex gap-2">
+          <h2 className="text-slate-600">อีเมล (Outlook)</h2>
+          <div className="flex flex-col gap-1">{studentData.outlook}</div>
+        </div>
+        <div className="flex gap-2">
+          <h2 className="text-slate-600">อีเมล (Gmail)</h2>
+          <div className="flex flex-col gap-1">{studentData.gmail}</div>
+        </div>
+      </>
+    )}
   </div>
 );
 
@@ -130,7 +142,7 @@ export default function DisplayData({
         label="ตรวจสอบข้อมูล และ บันทึกภาพหน้าจอไว้เป็นหลักฐาน"
       />
 
-      {process === "editing" && (
+      {process === "editing" && studentData && (
         <div className="flex w-full flex-col gap-y-4 rounded-lg border border-slate-200 bg-white p-6 shadow-lg">
           <div className="flex items-center gap-2 text-slate-600">
             <ClipboardIcon />

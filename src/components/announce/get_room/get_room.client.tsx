@@ -39,15 +39,15 @@ export default function GetRoom() {
       method: "GET",
     });
 
-    const studentName = await res.json();
-
-    if (!studentName) {
+    if (res.status !== 200) {
       throw new Error("Invalid student ID");
     }
 
+    const studentName = await res.json();
+
     setStudentInput({
       studentId: studentId,
-      firstNameCheck: studentName,
+      firstNameCheck: studentName.firstname,
     });
   };
 
@@ -61,7 +61,11 @@ export default function GetRoom() {
     );
 
     if (validateSurname.status === 404) {
-      throw new Error("Invalid surname");
+      throw new Error("Student Not Found");
+    }
+
+    if (validateSurname.status === 401) {
+      throw new Error("Invalid Surname");
     }
 
     const studentData = await validateSurname.json();
