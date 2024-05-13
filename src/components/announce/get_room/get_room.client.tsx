@@ -4,6 +4,7 @@ import StudentId from "./01_student_id.client";
 import ValidateSurname from "./02_validate_surname.client";
 import DisplayData from "./03_display_data.client";
 import { student as StudentData, emptyStudent } from "@/schema";
+import { sendGAEvent } from "@next/third-parties/google";
 
 export type Process = "idle" | "editing" | "done";
 
@@ -45,6 +46,11 @@ export default function GetRoom() {
 
     const studentName = await res.json();
 
+    sendGAEvent({
+      event: "verify_student_id",
+      action: "student_id",
+    });
+
     setStudentInput({
       studentId: studentId,
       firstNameCheck: studentName.firstname,
@@ -67,6 +73,11 @@ export default function GetRoom() {
     if (validateSurname.status === 401) {
       throw new Error("Invalid Surname");
     }
+
+    sendGAEvent({
+      event: "get_student_data",
+      action: "student_data",
+    });
 
     const studentData = await validateSurname.json();
     setStudentData(studentData);

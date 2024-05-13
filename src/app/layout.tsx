@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Noto_Sans_Thai } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const notoSansThai = Noto_Sans_Thai({
   subsets: ["thai"],
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <link rel="icon" href="/favicon.ico" />
       <body className={cn(notoSansThai.variable)}>{children}</body>
+      <GoogleAnalytics gaId="G-QERS0KFLMK" />
     </html>
   );
 }
