@@ -17,11 +17,12 @@ export interface StepProps {
 export interface StudentInput {
   studentId: string;
 }
-
 export default function GetRoom() {
   const [studentInput, setStudentInput] = useState<StudentInput>({
     studentId: "",
   });
+  const [firstNameCheck, setFirstNameCheck] = useState<string>("");
+
   const [process, setProcess] = useState<
     Record<"step_1" | "step_2" | "step_3", Process>
   >({
@@ -31,15 +32,17 @@ export default function GetRoom() {
   });
 
   const handleSaveStudentId = useCallback(async (studentId: string) => {
-    const validateStudentId = await mockFetch<boolean>(true, 1000);
+    const firstName = await mockFetch<string>("ปณิธิ", 1000);
 
-    if (!validateStudentId) {
+    if (!firstName) {
       throw new Error("Invalid student ID");
     }
 
     setStudentInput({
       studentId: studentId,
     });
+
+    setFirstNameCheck(firstName);
   }, []);
 
   const handleSaveSurname = useCallback(async (surname: string) => {
@@ -91,7 +94,7 @@ export default function GetRoom() {
             });
           }}
           saveInput={handleSaveSurname}
-          studentId={studentInput.studentId}
+          firstNameCheck={firstNameCheck}
         />
         <DisplayData
           process={process.step_3}

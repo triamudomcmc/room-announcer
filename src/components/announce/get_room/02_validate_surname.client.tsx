@@ -12,7 +12,7 @@ interface SurnameFormInput {
 }
 
 interface ValidateSurnameProps extends StepProps {
-  studentId: string;
+  firstNameCheck: string;
 }
 
 const mock = true;
@@ -22,13 +22,8 @@ export default function ValidateSurname({
   back,
   next,
   saveInput,
-  studentId,
+  firstNameCheck,
 }: ValidateSurnameProps) {
-  const { data: firstName, loading: firstNameLoading } = useFetch<string>(
-    `/api/student/${studentId}/firstname`,
-    mock ? "ปณิธิ" : undefined,
-  );
-
   const [loading, setLoading] = useState(false);
 
   const {
@@ -72,18 +67,14 @@ export default function ValidateSurname({
           onSubmit={handleSubmit(onSubmit)}
           className="flex w-full flex-col gap-y-4 rounded-lg border border-slate-200 bg-white p-6 shadow-lg"
         >
-          <Input
-            disabled={true}
-            type="text"
-            value={firstNameLoading ? "กำลังโหลด..." : String(firstName)}
-          />
+          <Input disabled={true} type="text" value={firstNameCheck} />
           <Input
             {...register("surname", {
               required: "กรุณากรอกนามสกุล",
             })}
             type="text"
             placeholder="นามสกุล"
-            disabled={firstNameLoading}
+            disabled={loading}
           />
           {errors.surname && (
             <span className="text-sm text-red-500">
@@ -92,8 +83,8 @@ export default function ValidateSurname({
           )}
 
           <div className="flex flex-col items-end">
-            <Button disabled={loading || firstNameLoading} type="submit">
-              {loading || firstNameLoading ? "กำลังโหลด..." : "ยืนยัน"}
+            <Button disabled={loading} type="submit">
+              {loading ? "กำลังโหลด..." : "ยืนยัน"}
             </Button>
           </div>
         </form>

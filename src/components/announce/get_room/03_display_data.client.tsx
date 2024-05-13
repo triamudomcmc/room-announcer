@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import { type Process } from "./get_room.client";
 import { AnnounceHeading } from "./heading";
 import { Skeleton } from "@/components/ui/skeleton";
