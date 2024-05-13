@@ -16,12 +16,14 @@ export interface StepProps {
 
 export interface StudentInput {
   studentId: string;
+  firstNameCheck: string;
 }
+
 export default function GetRoom() {
   const [studentInput, setStudentInput] = useState<StudentInput>({
     studentId: "",
+    firstNameCheck: "",
   });
-  const [firstNameCheck, setFirstNameCheck] = useState<string>("");
 
   const [process, setProcess] = useState<
     Record<"step_1" | "step_2" | "step_3", Process>
@@ -41,11 +43,14 @@ export default function GetRoom() {
 
     console.log(studentName);
 
+    if (!studentName) {
+      throw new Error("Invalid student ID");
+    }
+
     setStudentInput({
       studentId: studentId,
+      firstNameCheck: studentName,
     });
-
-    setFirstNameCheck(studentName.name);
   };
 
   const handleSaveSurname = useCallback(async (surname: string) => {
@@ -97,7 +102,7 @@ export default function GetRoom() {
             });
           }}
           saveInput={handleSaveSurname}
-          firstNameCheck={firstNameCheck}
+          firstNameCheck={studentInput.firstNameCheck}
         />
         <DisplayData
           process={process.step_3}
