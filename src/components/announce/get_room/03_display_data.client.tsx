@@ -106,11 +106,11 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
     <div className="flex gap-2">
       <h2 className="text-slate-600">ครูที่ปรึกษา</h2>
       <div className="flex flex-col gap-1">
-        {/* {studentData.advisor.map((advisor, index) => (
+        {studentData.advisor.split(",").map((advisor, index) => (
           <h2 key={index} className="text-slate-800">
-            {advisor}
+            {advisor.trim()}
           </h2>
-        ))} */}
+        ))}
       </div>
     </div>
     {studentData.level === 4 && (

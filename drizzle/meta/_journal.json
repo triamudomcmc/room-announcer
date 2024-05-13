@@ -15,6 +15,13 @@
       "when": 1715592060984,
       "tag": "0001_naive_sunfire",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1715625469279,
+      "tag": "0002_tiny_luckman",
+      "breakpoints": true
     }
   ]
 }
