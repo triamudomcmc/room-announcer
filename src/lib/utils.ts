@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 const buildingNames: Record<string, string> = {
   "1": "2",
-  "2": "3",
+  "2": "81 ปี",
   "3": "60 ปี",
   "4": "ตึกเฉลิมพระเกียรติฯ 72 พรรษา",
   "6": "55 ปี",
