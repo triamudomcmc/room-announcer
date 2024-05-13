@@ -13,6 +13,7 @@ export const StudentsTable = pgTable("students", {
   outlook: varchar("outlook"),
   wifi: varchar("wifi"),
   password: varchar("password"),
+  level: integer("level").notNull(),
 });
 
 export type student = InferSelectModel<typeof StudentsTable>;
