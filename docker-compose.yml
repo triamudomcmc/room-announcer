@@ -12,15 +12,15 @@ services:
     ports:
       - 5432:5432
 
-  web:
-    build:
-      context: .
-      args:
-        ENV_VARIABLE: ${ENV_VARIABLE}
-        NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
-    restart: always
-    ports:
-      - 3000:3000
+  # web:
+  #   build:
+  #     context: .
+  #     args:
+  #       ENV_VARIABLE: ${ENV_VARIABLE}
+  #       NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
 
 volumes:
   postgres_data:

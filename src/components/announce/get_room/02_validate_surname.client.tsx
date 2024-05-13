@@ -15,7 +15,7 @@ interface ValidateSurnameProps extends StepProps {
   firstNameCheck: string;
 }
 
-const mock = true;
+const mock = false;
 
 export default function ValidateSurname({
   process,

@@ -1,5 +1,5 @@
 {
-  "id": "394dbad2-37b6-4e81-bd2a-708ffcfa0196",
+  "id": "ab8f967f-bcdc-43c9-85a7-26c60d01ca4b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -14,8 +14,20 @@
           "primaryKey": true,
           "notNull": true
         },
+        "title": {
+          "name": "title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
         "name": {
           "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lastname": {
+          "name": "lastname",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
@@ -37,6 +49,30 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
+        },
+        "gmail": {
+          "name": "gmail",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "outlook": {
+          "name": "outlook",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "wifi": {
+          "name": "wifi",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
