@@ -32,7 +32,6 @@ export default function StudentId({
 
   const onSubmit: SubmitHandler<StudentIdFormInput> = async (data) => {
     setLoading(true);
-    console.log("ajkfdn aqjkfnbajkfn jkafn la");
     try {
       await saveInput(data.studentId);
       next();
