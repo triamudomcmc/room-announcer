@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import StudentId from "./01_student_id.client";
 import ValidateSurname from "./02_validate_surname.client";
 import DisplayData from "./03_display_data.client";
-import { mockFetch } from "@/lib/fetch";
+import { httpFetch, mockFetch } from "@/lib/fetch";
 
 export type Process = "idle" | "editing" | "done";
 
@@ -11,7 +11,7 @@ export interface StepProps {
   process: Process;
   back: () => void;
   next: () => void;
-  saveInput: (input: string) => void;
+  saveInput: (input: string) => Promise<void>;
 }
 
 export interface StudentInput {
@@ -30,17 +30,20 @@ export default function GetRoom() {
     step_3: "idle",
   });
 
-  const handleSaveStudentId = useCallback(async (studentId: string) => {
-    const validateStudentId = await mockFetch<boolean>(true, 1000);
+  const handleSaveStudentId = async (studentId: string) => {
+    const res = await fetch("/api/student/name", {
+      method: "POST",
+      body: JSON.stringify({ id: studentId }),
+    });
 
-    if (!validateStudentId) {
-      throw new Error("Invalid student ID");
-    }
+    const studentName = await res.json();
+
+    console.log(studentName);
 
     setStudentInput({
       studentId: studentId,
     });
-  }, []);
+  };
 
   const handleSaveSurname = useCallback(async (surname: string) => {
     const validateSurname = await mockFetch<boolean>(
