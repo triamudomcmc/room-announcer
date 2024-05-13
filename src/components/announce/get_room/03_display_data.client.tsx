@@ -1,37 +1,13 @@
 "use client";
+import { getBuildingName } from "@/lib/utils";
 import { type Process } from "./get_room.client";
 import { AnnounceHeading } from "./heading";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useFetch } from "@/lib/fetch";
+import type { student as StudentData } from "@/schema";
 
 interface DisplayDataProps {
   process: Process;
-  studentId: string;
-}
-
-/*
-ex.
-ชื่อ  นางสาวสุทธิชา  สีผาย
-เลขประจำตัว  63012
-แผนการเรียน  วิทย์ - คณิต
-ชั้น  ม.5
-ตึก  คุณหญิงหรั่ง กันตารัติ
-ห้อง  833
-เลขที่  20
-ครูที่ปรึกษา  เรียนเด่น เล่นดี
-                   เรียนเด่น เล่นดี
-*/
-
-// to be replaced with actual type
-interface StudentData {
-  name: string;
-  studentId: string;
-  academicProgram: string;
-  grade: string;
-  building: string;
-  room: string;
-  number: string;
-  advisor: string[];
+  studentData: StudentData;
 }
 
 const ClipboardIcon = () => (
@@ -99,19 +75,19 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
     </div>
     <div className="flex gap-2">
       <h2 className="text-slate-600">เลขประจำตัว</h2>
-      <h2 className="text-slate-800">{studentData.studentId}</h2>
+      <h2 className="text-slate-800">{studentData.id}</h2>
     </div>
     <div className="flex gap-2">
       <h2 className="text-slate-600">แผนการเรียน</h2>
-      <h2 className="text-slate-800">{studentData.academicProgram}</h2>
+      <h2 className="text-slate-800">{studentData.program}</h2>
     </div>
     <div className="flex gap-2">
       <h2 className="text-slate-600">ชั้น</h2>
-      <h2 className="text-slate-800">{studentData.grade}</h2>
+      <h2 className="text-slate-800">{studentData.level}</h2>
     </div>
     <div className="flex gap-2">
       <h2 className="text-slate-600">ตึก</h2>
-      <h2 className="text-slate-800">{studentData.building}</h2>
+      <h2 className="text-slate-800">{getBuildingName(studentData.room)}</h2>
     </div>
     <div className="flex gap-2">
       <h2 className="text-slate-600">ห้อง</h2>
@@ -124,36 +100,28 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
     <div className="flex gap-2">
       <h2 className="text-slate-600">ครูที่ปรึกษา</h2>
       <div className="flex flex-col gap-1">
-        {studentData.advisor.map((advisor, index) => (
+        {/* {studentData.advisor.map((advisor, index) => (
           <h2 key={index} className="text-slate-800">
             {advisor}
           </h2>
-        ))}
+        ))} */}
       </div>
+    </div>
+    <div className="flex gap-2">
+      <h2 className="text-slate-600">รหัสไวไฟ</h2>
+      <div className="flex flex-col gap-1">{studentData.wifi}</div>
+    </div>
+    <div className="flex gap-2">
+      <h2 className="text-slate-600">อีเมล</h2>
+      <div className="flex flex-col gap-1">{studentData.outlook}</div>
     </div>
   </div>
 );
 
-const mock = true;
-
-export default function DisplayData({ studentId, process }: DisplayDataProps) {
-  const { data: studentData, loading: studentDataLoading } =
-    useFetch<StudentData>(
-      `/api/student/${studentId}/data`,
-      mock
-        ? {
-            name: "นางสาวสุทธิชา สีผาย",
-            studentId: "63012",
-            academicProgram: "วิทย์ - คณิต",
-            grade: "ม.5",
-            building: "คุณหญิงหรั่ง กันตารัติ",
-            room: "833",
-            number: "20",
-            advisor: ["เรียนเด่น เล่นดี", "เรียนเด่น เล่นดี"],
-          }
-        : undefined,
-    );
-
+export default function DisplayData({
+  studentData,
+  process,
+}: DisplayDataProps) {
   return (
     <div className="flex flex-col gap-2">
       <AnnounceHeading
@@ -169,12 +137,7 @@ export default function DisplayData({ studentId, process }: DisplayDataProps) {
             <h2 className="text-lg font-bold">ข้อมูลนักเรียน</h2>
           </div>
 
-          {/* student data */}
-          {studentDataLoading ? (
-            <StudentLoadingSkeleton />
-          ) : (
-            <StudentDataPanel studentData={studentData as StudentData} />
-          )}
+          <StudentDataPanel studentData={studentData} />
         </div>
       )}
     </div>

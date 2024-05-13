@@ -1,9 +1,9 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import StudentId from "./01_student_id.client";
 import ValidateSurname from "./02_validate_surname.client";
 import DisplayData from "./03_display_data.client";
-import { httpFetch, mockFetch } from "@/lib/fetch";
+import { student as StudentData, emptyStudent } from "@/schema";
 
 export type Process = "idle" | "editing" | "done";
 
@@ -24,6 +24,7 @@ export default function GetRoom() {
     studentId: "",
     firstNameCheck: "",
   });
+  const [studentData, setStudentData] = useState<StudentData>(emptyStudent);
 
   const [process, setProcess] = useState<
     Record<"step_1" | "step_2" | "step_3", Process>
@@ -50,7 +51,7 @@ export default function GetRoom() {
 
     setStudentInput({
       studentId: studentId,
-      firstNameCheck: studentName.firstname,
+      firstNameCheck: studentName,
     });
   };
 
@@ -66,6 +67,9 @@ export default function GetRoom() {
     if (validateSurname.status === 404) {
       throw new Error("Invalid surname");
     }
+
+    const studentData = await validateSurname.json();
+    setStudentData(studentData);
   };
 
   return (
@@ -108,10 +112,7 @@ export default function GetRoom() {
           saveInput={handleSaveSurname}
           firstNameCheck={studentInput.firstNameCheck}
         />
-        <DisplayData
-          process={process.step_3}
-          studentId={studentInput.studentId}
-        />
+        <DisplayData process={process.step_3} studentData={studentData} />
       </div>
     </section>
   );

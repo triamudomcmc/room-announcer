@@ -16,4 +16,19 @@ export const StudentsTable = pgTable("students", {
   level: integer("level").notNull(),
 });
 
+export const emptyStudent = {
+  id: 0,
+  title: "",
+  name: "",
+  lastname: "",
+  room: "",
+  number: 0,
+  program: "",
+  gmail: "",
+  outlook: "",
+  wifi: "",
+  password: "",
+  level: 0,
+};
+
 export type student = InferSelectModel<typeof StudentsTable>;
