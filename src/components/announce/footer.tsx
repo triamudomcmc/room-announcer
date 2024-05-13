@@ -5,12 +5,12 @@ export default function Footer() {
     <section className="mt-8 text-center text-lg">
       <p>หากพบปัญหาใดในการใช้งานระบบ</p>
       <p>
-        สามารถรายงานปัญหาได้{" "}
+        สามารถรายงานปัญหาได้ที่{" "}
         <Link
-          href="https://www.facebook.com/TRIAMUDOM.SUKSA.SCHOOL"
+          href="mailto:ict@triamudom.ac.th"
           className="font-bold text-tucmc-main"
         >
-          ที่นี่
+          ict@triamudom.ac.th
         </Link>
       </p>
     </section>
