@@ -1,5 +1,5 @@
 import { drizzle } from "drizzle-orm/postgres-js";
-import { eq } from "drizzle-orm";
+import { eq, or } from "drizzle-orm";
 import postgres from "postgres";
 
 import * as schema from "../schema";
@@ -14,18 +14,9 @@ export const getUniqueStudent = async (id: number) => {
   const student = await db
     .select()
     .from(schema.StudentsTable)
-    .where(eq(schema.StudentsTable.id, id))
-    .limit(1);
-
-  return student[0];
-};
-
-export const getUniqueStudentFromExamId = async (id: number) => {
-  // TODO fetch from admission id
-  const student = await db
-    .select()
-    .from(schema.StudentsTable)
-    .where(eq(schema.StudentsTable.examid, id))
+    .where(
+      or(eq(schema.StudentsTable.id, id), eq(schema.StudentsTable.examid, id)),
+    )
     .limit(1);
 
   return student[0];
@@ -46,7 +37,9 @@ export const getStudentName = async (id: number) => {
   const student = await db
     .select({ firstname: schema.StudentsTable.name })
     .from(schema.StudentsTable)
-    .where(eq(schema.StudentsTable.id, id))
+    .where(
+      or(eq(schema.StudentsTable.id, id), eq(schema.StudentsTable.examid, id)),
+    )
     .limit(1);
 
   if (!student || student.length === 0) {

@@ -3,12 +3,12 @@ import { pgTable, integer, varchar } from "drizzle-orm/pg-core";
 
 export const StudentsTable = pgTable("students", {
   id: integer("id").primaryKey(),
-  examid: integer("examid").notNull(),
+  examid: integer("examid"),
   title: varchar("title").notNull(),
   name: varchar("name").notNull(),
   lastname: varchar("lastname").notNull(),
   room: varchar("room").notNull(),
-  number: integer("number").notNull(),
+  number: integer("number"),
   program: varchar("program").notNull(),
   gmail: varchar("gmail"),
   outlook: varchar("outlook"),
