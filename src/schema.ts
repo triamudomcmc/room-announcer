@@ -20,6 +20,7 @@ export const StudentsTable = pgTable("students", {
 
 export const emptyStudent = {
   id: 0,
+  examid: 0,
   title: "",
   name: "",
   lastname: "",
