@@ -3,6 +3,7 @@ import { pgTable, integer, varchar } from "drizzle-orm/pg-core";
 
 export const StudentsTable = pgTable("students", {
   id: integer("id").primaryKey(),
+  examid: integer("examid").notNull(),
   title: varchar("title").notNull(),
   name: varchar("name").notNull(),
   lastname: varchar("lastname").notNull(),
