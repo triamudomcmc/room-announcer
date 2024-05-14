@@ -62,7 +62,7 @@ export default function StudentId({
             {...register("studentId", {
               required: "กรุณากรอกเลขประจำตัวนักเรียน",
               pattern: {
-                value: /^[6][0-9]{4}$/,
+                value: /^[3,6][0-9]{4}$/,
                 message: "เลขประจำตัวนักเรียนไม่ถูกต้อง",
               },
             })}

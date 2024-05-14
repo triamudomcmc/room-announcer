@@ -2,6 +2,7 @@ import {
   getStudentInformation,
   getStudentName,
   getUniqueStudent,
+  getUniqueStudentFromExamId,
 } from "@/lib/db";
 
 export async function POST(
@@ -9,19 +10,32 @@ export async function POST(
   { params }: { params: { id: string } },
 ) {
   const { lastname } = await request.json();
+
+  // attempt to get data from student ID
   const student = await getUniqueStudent(parseInt(params.id));
 
-  if (student === null) {
-    return new Response("Not found", { status: 404 });
+  // if student is found, attempt to get student information
+  if (student) {
+    const studentInformation = await getStudentInformation(student, lastname);
+
+    if (studentInformation === null) {
+      return new Response("Wrong lastname", { status: 401 });
+    }
+
+    return Response.json(studentInformation);
   }
 
-  const studentInformation = await getStudentInformation(student, lastname);
+  // if student is not found, attempt to get data from exam ID
+  else {
+    const admissionStudent = await getUniqueStudentFromExamId(
+      parseInt(params.id),
+    );
 
-  if (studentInformation === null) {
-    return new Response("Wrong lastname", { status: 401 });
+    if (admissionStudent === null)
+      return new Response("Not found", { status: 404 });
+
+    return Response.json(admissionStudent);
   }
-
-  return Response.json(studentInformation);
 }
 
 export async function GET(

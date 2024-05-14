@@ -20,6 +20,17 @@ export const getUniqueStudent = async (id: number) => {
   return student[0];
 };
 
+export const getUniqueStudentFromExamId = async (id: number) => {
+  // TODO fetch from admission id
+  const student = await db
+    .select()
+    .from(schema.StudentsTable)
+    .where(eq(schema.StudentsTable.examid, id))
+    .limit(1);
+
+  return student[0];
+};
+
 export const getStudentInformation = async (
   student: schema.student,
   lastname: string,
