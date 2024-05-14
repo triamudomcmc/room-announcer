@@ -15,7 +15,7 @@ const buildingNames: Record<string, string> = {
   "9": "9",
 };
 
-const building1 = [3, 4, 5];
+const building1 = [2, 3, 4, 5];
 const artBuilding = [6, 7, 8];
 
 export function getBuildingName(room: string) {
