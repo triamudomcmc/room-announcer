@@ -1,6 +1,6 @@
 "use client";
 import { getBuildingName, removeParenthesisPrefix } from "@/lib/utils";
-import { type Process } from "./get_room.client";
+import { type Process } from ".";
 import { AnnounceHeading } from "./heading";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { student as StudentData } from "@/schema";

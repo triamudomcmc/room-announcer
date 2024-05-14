@@ -1,8 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import { type SubmitHandler, useForm, set } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { type StepProps } from "./get_room.client";
 import { useState } from "react";
 import { AnnounceHeading } from "./heading";

@@ -4,8 +4,7 @@ import { Input } from "@/components/ui/input";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { type StepProps } from "./get_room.client";
 import { AnnounceHeading } from "./heading";
-import { useEffect, useState } from "react";
-import { useFetch } from "@/lib/fetch";
+import { useState } from "react";
 
 interface SurnameFormInput {
   surname: string;
