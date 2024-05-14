@@ -60,9 +60,9 @@ export default function StudentId({
         >
           <Input
             {...register("studentId", {
-              required: "กรุณากรอกเลขประจำตัวนักเรียน",
+              required: "กรุณากรอกเลขประจำตัวนักเรียน หรือรหัสประจำตัวผู้สอบ",
               pattern: {
-                value: /^[3,6][0-9]{4}$/,
+                value: /^[1,23,6][0-9]{4}$/,
                 message: "เลขประจำตัวนักเรียนไม่ถูกต้อง",
               },
             })}
