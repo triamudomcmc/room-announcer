@@ -68,7 +68,7 @@ const StudentLoadingSkeleton = () => (
 );
 
 const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
-  <div className="flex w-full flex-col gap-2">
+  <div className="flex w-full flex-col gap-2 text-[0.90rem]">
     <div className="flex gap-2">
       <h2 className="text-slate-600">ชื่อ</h2>
       <h2 className="text-slate-800">{studentData.name}</h2>
@@ -83,7 +83,7 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
       <h2 className="text-slate-600">เลขประจำตัว</h2>
       <h2 className="text-slate-800">{studentData.id}</h2>
     </div>
-    <div className="flex gap-2">
+    <div className="flex items-center gap-2">
       <h2 className="text-slate-600">แผนการเรียน</h2>
       <h2 className="text-slate-800">{studentData.program}</h2>
     </div>
