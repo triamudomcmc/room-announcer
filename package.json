@@ -10,7 +10,9 @@
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
     "studio": "drizzle-kit studio",
-    "drop": "drizzle-kit drop"
+    "drop": "drizzle-kit drop",
+    "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
+    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
   },
   "dependencies": {
     "@next/third-parties": "^14.2.3",
@@ -30,6 +32,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

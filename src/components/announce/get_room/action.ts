@@ -1,11 +1,11 @@
-"use server";
+'use server'
 
-import { eq, or } from "drizzle-orm";
+import * as schema from '@/schema'
+import { eq, or } from 'drizzle-orm'
 
-import * as schema from "@/schema";
-import { db } from "@/lib/db";
-import { similarity } from "@/lib/compareStringDistance";
-import { removeParenthesisPrefix } from "@/lib/utils";
+import { similarity } from '@/lib/compareStringDistance'
+import { db } from '@/lib/db'
+import { removeParenthesisPrefix } from '@/lib/utils'
 
 export const getStudentName = async (id: number) => {
   const student = await db
@@ -14,18 +14,18 @@ export const getStudentName = async (id: number) => {
     .where(
       or(eq(schema.StudentsTable.id, id), eq(schema.StudentsTable.examid, id)),
     )
-    .limit(1);
+    .limit(1)
 
   if (!student || student.length === 0) {
-    return null;
+    return null
   }
 
   if (!student[0].firstname) {
-    throw new Error("Student Not Found");
+    throw new Error('Student Not Found')
   }
 
-  return student[0].firstname;
-};
+  return student[0].firstname
+}
 
 export const getUniqueStudent = async (id: number, lastname: string) => {
   const student = await db
@@ -34,13 +34,13 @@ export const getUniqueStudent = async (id: number, lastname: string) => {
     .where(
       or(eq(schema.StudentsTable.id, id), eq(schema.StudentsTable.examid, id)),
     )
-    .limit(1);
+    .limit(1)
 
   if (
     similarity(removeParenthesisPrefix(student[0].lastname), lastname) > 0.8
   ) {
-    return student[0];
+    return student[0]
   }
 
-  return null;
-};
+  return null
+}

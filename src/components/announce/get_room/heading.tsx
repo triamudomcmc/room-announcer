@@ -1,30 +1,30 @@
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 
 interface HeadingProps {
-  process: "idle" | "editing" | "done";
-  back?: () => void;
-  step: number;
-  label: string;
+  process: 'idle' | 'editing' | 'done'
+  back?: () => void
+  step: number
+  label: string
 }
 
 export function AnnounceHeading({ process, back, step, label }: HeadingProps) {
   return (
     <Button
       className={cn(
-        "rounded-lg border px-6 py-12 shadow-lg transition-colors duration-300 ease-in",
-        process === "idle" &&
-          "cursor-not-allowed border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
-        process === "editing" && "bg-slate-700 text-white hover:bg-slate-800",
-        process === "done" &&
-          "border-slate-200 bg-white text-slate-300 hover:bg-slate-500 hover:text-slate-100",
+        'rounded-lg border px-6 py-12 shadow-lg transition-colors duration-300 ease-in',
+        process === 'idle' &&
+          'cursor-not-allowed border-slate-200 bg-white text-slate-700 hover:bg-slate-50',
+        process === 'editing' && 'bg-slate-700 text-white hover:bg-slate-800',
+        process === 'done' &&
+          'border-slate-200 bg-white text-slate-300 hover:bg-slate-500 hover:text-slate-100',
       )}
       onClick={() => {
-        if (process === "done") back && back();
+        if (process === 'done') back && back()
       }}
     >
       <div className="flex w-full items-center gap-2">
-        {process === "done" ? (
+        {process === 'done' ? (
           <svg
             width="43"
             height="35"
@@ -39,7 +39,7 @@ export function AnnounceHeading({ process, back, step, label }: HeadingProps) {
           </svg>
         ) : (
           <h2 className="text-5xl font-bold">
-            {String(step).padStart(2, "0")}
+            {String(step).padStart(2, '0')}
           </h2>
         )}
         <h2 className="whitespace-pre-wrap text-left text-lg leading-tight">
@@ -47,5 +47,5 @@ export function AnnounceHeading({ process, back, step, label }: HeadingProps) {
         </h2>
       </div>
     </Button>
-  );
+  )
 }

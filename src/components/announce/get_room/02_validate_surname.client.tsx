@@ -1,20 +1,23 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { type SubmitHandler, useForm } from "react-hook-form";
-import { type StepProps } from "./get_room.client";
-import { AnnounceHeading } from "./heading";
-import { useState } from "react";
+'use client'
+
+import { useState } from 'react'
+import { useForm, type SubmitHandler } from 'react-hook-form'
+
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+
+import { type StepProps } from './get_room.client'
+import { AnnounceHeading } from './heading'
 
 interface SurnameFormInput {
-  surname: string;
+  surname: string
 }
 
 interface ValidateSurnameProps extends StepProps {
-  firstNameCheck: string;
+  firstNameCheck: string
 }
 
-const mock = false;
+const mock = false
 
 export default function ValidateSurname({
   process,
@@ -23,7 +26,7 @@ export default function ValidateSurname({
   saveInput,
   firstNameCheck,
 }: ValidateSurnameProps) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const {
     register,
@@ -33,24 +36,24 @@ export default function ValidateSurname({
     formState: { errors },
   } = useForm<SurnameFormInput>({
     defaultValues: {
-      surname: "",
+      surname: '',
     },
-  });
+  })
 
   const onSubmit: SubmitHandler<SurnameFormInput> = async (data) => {
-    setLoading(true);
+    setLoading(true)
     try {
-      await saveInput(data.surname);
-      next();
-      reset();
+      await saveInput(data.surname)
+      next()
+      reset()
     } catch (error) {
-      setError("surname", {
-        type: "manual",
-        message: "นามสกุลไม่ตรงกับชื่อ",
-      });
+      setError('surname', {
+        type: 'manual',
+        message: 'นามสกุลไม่ตรงกับชื่อ',
+      })
     }
-    setLoading(false);
-  };
+    setLoading(false)
+  }
 
   return (
     <div className="flex flex-col gap-2">
@@ -61,15 +64,15 @@ export default function ValidateSurname({
         back={back}
       />
 
-      {process === "editing" && (
+      {process === 'editing' && (
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex w-full flex-col gap-y-4 rounded-lg border border-slate-200 bg-white p-6 shadow-lg"
         >
           <Input disabled={true} type="text" value={firstNameCheck} />
           <Input
-            {...register("surname", {
-              required: "กรุณากรอกนามสกุล",
+            {...register('surname', {
+              required: 'กรุณากรอกนามสกุล',
             })}
             type="text"
             placeholder="นามสกุล"
@@ -83,11 +86,11 @@ export default function ValidateSurname({
 
           <div className="flex flex-col items-end">
             <Button disabled={loading} type="submit">
-              {loading ? "กำลังโหลด..." : "ยืนยัน"}
+              {loading ? 'กำลังโหลด...' : 'ยืนยัน'}
             </Button>
           </div>
         </form>
       )}
     </div>
-  );
+  )
 }

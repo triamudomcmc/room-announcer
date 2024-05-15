@@ -1,13 +1,16 @@
-"use client";
-import { getBuildingName, removeParenthesisPrefix } from "@/lib/utils";
-import { type Process } from ".";
-import { AnnounceHeading } from "./heading";
-import { Skeleton } from "@/components/ui/skeleton";
-import type { student as StudentData } from "@/schema";
+'use client'
+
+import type { student as StudentData } from '@/schema'
+
+import { getBuildingName, removeParenthesisPrefix } from '@/lib/utils'
+import { Skeleton } from '@/components/ui/skeleton'
+
+import { type Process } from '.'
+import { AnnounceHeading } from './heading'
 
 interface DisplayDataProps {
-  process: Process;
-  studentData: StudentData;
+  process: Process
+  studentData: StudentData
 }
 
 const ClipboardIcon = () => (
@@ -25,7 +28,7 @@ const ClipboardIcon = () => (
       fill="currentColor"
     />
   </svg>
-);
+)
 
 const StudentLoadingSkeleton = () => (
   <div className="flex animate-pulse flex-col gap-2">
@@ -65,7 +68,7 @@ const StudentLoadingSkeleton = () => (
       </div>
     </div>
   </div>
-);
+)
 
 const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
   <div className="flex w-full flex-col gap-2 text-[0.90rem]">
@@ -106,7 +109,7 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
     <div className="flex gap-2">
       <h2 className="text-slate-600">ครูที่ปรึกษา</h2>
       <div className="flex flex-col gap-1">
-        {studentData.advisor.split(",").map((advisor, index) => (
+        {studentData.advisor.split(',').map((advisor, index) => (
           <h2 key={index} className="text-slate-800">
             {advisor.trim()}
           </h2>
@@ -143,7 +146,7 @@ const StudentDataPanel = ({ studentData }: { studentData: StudentData }) => (
       </>
     )}
   </div>
-);
+)
 
 export default function DisplayData({
   studentData,
@@ -157,7 +160,7 @@ export default function DisplayData({
         label="ตรวจสอบข้อมูล และ บันทึกภาพหน้าจอไว้เป็นหลักฐาน"
       />
 
-      {process === "editing" && studentData && (
+      {process === 'editing' && studentData && (
         <div className="flex w-full flex-col gap-y-4 rounded-lg border border-slate-200 bg-white p-6 shadow-lg">
           <div className="flex items-center gap-2 text-slate-600">
             <ClipboardIcon />
@@ -168,5 +171,5 @@ export default function DisplayData({
         </div>
       )}
     </div>
-  );
+  )
 }

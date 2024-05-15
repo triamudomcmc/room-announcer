@@ -1,5 +1,5 @@
-import { default as GetRoom } from "./get_room.client";
+import { default as GetRoom } from './get_room.client'
 
-export default GetRoom;
+export default GetRoom
 
-export * from "./useGetRoom";
+export * from './useGetRoom'

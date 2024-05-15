@@ -12,5 +12,5 @@ export default function Hero() {
         <p className="font-regular text-xl">โรงเรียนเตรียมอุดมศึกษา</p>
       </div>
     </section>
-  );
+  )
 }

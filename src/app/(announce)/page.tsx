@@ -1,4 +1,4 @@
-import { Footer, GetRoom, Hero } from "@/components/announce";
+import { Footer, GetRoom, Hero } from '@/components/announce'
 
 export default async function Home() {
   return (
@@ -9,5 +9,5 @@ export default async function Home() {
       </div>
       <Footer />
     </main>
-  );
+  )
 }

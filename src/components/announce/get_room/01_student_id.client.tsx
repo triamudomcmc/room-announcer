@@ -1,13 +1,16 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { type SubmitHandler, useForm } from "react-hook-form";
-import { type StepProps } from "./get_room.client";
-import { useState } from "react";
-import { AnnounceHeading } from "./heading";
+'use client'
+
+import { useState } from 'react'
+import { useForm, type SubmitHandler } from 'react-hook-form'
+
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+
+import { type StepProps } from './get_room.client'
+import { AnnounceHeading } from './heading'
 
 interface StudentIdFormInput {
-  studentId: string;
+  studentId: string
 }
 
 export default function StudentId({
@@ -16,7 +19,7 @@ export default function StudentId({
   next,
   saveInput,
 }: StepProps) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const {
     register,
@@ -25,23 +28,23 @@ export default function StudentId({
     formState: { errors },
   } = useForm<StudentIdFormInput>({
     defaultValues: {
-      studentId: "",
+      studentId: '',
     },
-  });
+  })
 
   const onSubmit: SubmitHandler<StudentIdFormInput> = async (data) => {
-    setLoading(true);
+    setLoading(true)
     try {
-      await saveInput(data.studentId);
-      next();
+      await saveInput(data.studentId)
+      next()
     } catch (error) {
-      setError("studentId", {
-        type: "manual",
-        message: "เลขประจำตัวนักเรียนไม่ถูกต้อง",
-      });
+      setError('studentId', {
+        type: 'manual',
+        message: 'เลขประจำตัวนักเรียนไม่ถูกต้อง',
+      })
     }
-    setLoading(false);
-  };
+    setLoading(false)
+  }
 
   return (
     <div className="flex flex-col gap-2">
@@ -52,17 +55,17 @@ export default function StudentId({
         back={back}
       />
 
-      {process === "editing" && (
+      {process === 'editing' && (
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex w-full flex-col gap-4 rounded-lg border border-slate-200 bg-white p-6 shadow-lg"
         >
           <Input
-            {...register("studentId", {
-              required: "กรุณากรอกเลขประจำตัวนักเรียน หรือรหัสประจำตัวผู้สอบ",
+            {...register('studentId', {
+              required: 'กรุณากรอกเลขประจำตัวนักเรียน หรือรหัสประจำตัวผู้สอบ',
               pattern: {
                 value: /^[1,23,6][0-9]{4}$/,
-                message: "เลขประจำตัวนักเรียนไม่ถูกต้อง",
+                message: 'เลขประจำตัวนักเรียนไม่ถูกต้อง',
               },
             })}
             type="text"
@@ -76,11 +79,11 @@ export default function StudentId({
 
           <div className="flex flex-col items-end">
             <Button type="submit" disabled={loading}>
-              {loading ? "กำลังโหลด..." : "ยืนยัน"}
+              {loading ? 'กำลังโหลด...' : 'ยืนยัน'}
             </Button>
           </div>
         </form>
       )}
     </div>
-  );
+  )
 }
