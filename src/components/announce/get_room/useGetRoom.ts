@@ -2,6 +2,7 @@
 import { sendGAEvent } from "@next/third-parties/google";
 import { student as StudentData, emptyStudent } from "@/schema";
 import { useCallback, useState } from "react";
+import { getStudentName, getUniqueStudent } from "./action";
 
 export type Process = "idle" | "editing" | "done";
 
@@ -26,43 +27,32 @@ export function useGetRoom() {
   });
 
   const handleSaveStudentId = useCallback(async (studentId: string) => {
-    const res = await fetch(`/api/student/${studentId}`, {
-      method: "GET",
-    });
-
-    if (res.status !== 200) {
-      throw new Error("Invalid student ID");
-    }
-
-    const studentName = await res.json();
-
     sendGAEvent({
       event: "verify_student_id",
       action: "student_id",
     });
 
+    const studentName = await getStudentName(parseInt(studentId));
+
+    if (!studentName) {
+      throw new Error("Student Not Found");
+    }
+
     setStudentInput({
       studentId: studentId,
-      firstNameCheck: studentName.firstname,
+      firstNameCheck: studentName,
     });
   }, []);
 
   const handleSaveSurname = useCallback(
     async (surname: string) => {
-      const validateSurname = await fetch(
-        `/api/student/${studentInput.studentId}`,
-        {
-          method: "POST",
-          body: JSON.stringify({ lastname: surname }),
-        },
+      const student = await getUniqueStudent(
+        parseInt(studentInput.studentId),
+        surname,
       );
 
-      if (validateSurname.status === 404) {
-        throw new Error("Student Not Found");
-      }
-
-      if (validateSurname.status === 401) {
-        throw new Error("Invalid Surname");
+      if (!student) {
+        throw new Error("Wrong lastname");
       }
 
       sendGAEvent({
@@ -70,8 +60,7 @@ export function useGetRoom() {
         action: "student_data",
       });
 
-      const studentData = await validateSurname.json();
-      setStudentData(studentData);
+      setStudentData(student);
     },
     [studentInput.studentId],
   );

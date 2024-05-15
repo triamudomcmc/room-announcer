@@ -1,5 +1,3 @@
-// import { getUniqueStudent } from "@/lib/db"
-
 import { Footer, GetRoom, Hero } from "@/components/announce";
 
 export default async function Home() {
